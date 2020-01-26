@@ -10,6 +10,7 @@ export default class ProductList extends Component {
         return (
             <React.Fragment>
                 <div className='py-5'>
+                {/* style={{backgroundImage:"linear-gradient(to right,white,#aaa"} */}
                     <div className="container">
                         <Title name='our' title='products' />
                         <div className="row">
