@@ -10,7 +10,8 @@ export default class Product extends Component {
                 <div className="card">
                     <ProductConsumer>
                         {(value)=>(
-                        <div><p style={{textAlign:"center",color:"green"}}>{title}</p> 
+                        <div>
+                            <p style={{textAlign:"center",color:"green"}}>{title}</p> 
                     <div className="img-container p-5" 
                     onClick={()=>value.handleDetail(id)
                     }>
@@ -18,7 +19,10 @@ export default class Product extends Component {
                         <img style={{height :"12rem",width:"10rem"}} src={img} alt="Product" className="card-img-top" ></img>
                     </Link>
                     <button className="cart-btn" disabled={inCart ? true:false} 
-                    onClick={()=>value.addToCart(id)}>
+                    onClick={()=>{
+                        value.addToCart(id);
+                        value.openModel(id);
+                    }}>
                     {inCart ? (<p className="text-capitalize mb-0" disabled>InCart</p>):(<i className="fas fa-cart-plus" />)}
                     </button>
                     </div></div>)}
