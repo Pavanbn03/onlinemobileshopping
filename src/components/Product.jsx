@@ -42,7 +42,7 @@ export default class Product extends Component {
     }
 }
 
-// 023519
+// 054043
 
 const ProductWrapper = styled.div`
 .card{

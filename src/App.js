@@ -9,8 +9,11 @@ import Cart from './components/Cart/Cart'
 import Default from './components/Default'
 import Model from './components/Model'
 
+
 class App extends Component {
   render(){
+  
+    
     return (
       <React.Fragment>
         <NavBar />
