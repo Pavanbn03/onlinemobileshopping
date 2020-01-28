@@ -8,6 +8,8 @@ import Details from './components/Details'
 import Cart from './components/Cart/Cart'
 import Default from './components/Default'
 import Model from './components/Model'
+import Signin from './components/auth/Signin'
+import Signup from './components/auth/Signup'
 
 
 class App extends Component {
@@ -17,9 +19,13 @@ class App extends Component {
     return (
       <React.Fragment>
         <NavBar />
+      
     <Switch>
       <Route path='/details'  component={Details} />
       <Route path='/cart'  component={Cart} />
+      <Route path='/signin'  component={Signin} />
+      <Route path='/signup'  component={Signup} />
+      
        <Route path='/' exact component={ProductList} />
       <Route component={Default} />
     </Switch>

@@ -15,6 +15,13 @@ export default class NavBar extends Component {
                     <Link to='/' className='nav-link'>products</Link>
                 </li>
             </ul>
+           
+                <li className="mx-auto"style={{listStyleType:"none"}}>
+                    
+                    <Link to='/signin' className='nav-link'>
+                    <i className="fas fa-sign-in-alt"> Login</i></Link>
+                </li>
+            
             <Link  to='/cart' className='ml-auto'>
                 <ButtonContainer>
                     <span className='mr-2'>
