@@ -1,5 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import axios from 'axios'
 import {storeProducts,detailProduct} from './data'
+import {Redirect} from 'react-router-dom'
 
 const ProductContext=React.createContext();
 
@@ -12,8 +14,33 @@ const ProductContext=React.createContext();
          modelProduct:detailProduct,
          cartSubTotal:0,
          cartTax:0,
-         cartTotal:0
+         cartTotal:0,
+         email:null,
+         password:null,
+         firstName:null,
+         lastName:null,
+         isAuth:false,
      }
+
+logout=()=>{
+            localStorage.removeItem('token');
+            localStorage.removeItem('userId');
+            this.setState(()=>{
+                return {isAuth:false};
+            })
+            
+}
+
+tryautosignin=()=>{
+    const token = localStorage.getItem('token')
+        if(!token){
+            this.logout()
+        }
+        else{
+            this.setState({isAuth:true})
+            
+        }
+}
 setProducts=()=>{
     let tempProducts=[];
     storeProducts.forEach(item=>{
@@ -22,16 +49,72 @@ setProducts=()=>{
     });
     this.setState({products:tempProducts});
 };
+signin=(e)=>{
+    e.preventDefault();
+    const authData={
+        email:this.state.email,
+        password:this.state.password,
+        returnSecureToken:true
+    }
+    console.log(this.state.email,authData.email)
+   const url= "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAE0oDZHowCczpHaJ4V3v6l1IMOYD0cA0k"
+    axios.post(url,authData)
+    .then(response=>{
+            localStorage.setItem('token',response.data.idToken)
+            localStorage.setItem('userId',response.data.localId)
+            this.setState({isAuth:true,signin:true})  
+            
+    })
+    .catch(err=>{
+        alert(err.response.data.error.message)
+        this.setState({isAuth:false,signin:false});
+    })
+    
+}
+signup=(e)=>{
+    e.preventDefault();
+    const authData={
+        email:this.state.email,
+        password:this.state.password,
+        returnSecureToken:true
+    }
+   const url= "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAE0oDZHowCczpHaJ4V3v6l1IMOYD0cA0k"
+    axios.post(url,authData)
+    .then(response=>{
+            localStorage.setItem('token',response.data.idToken)
+            localStorage.setItem('userId',response.data.localId)
+        const userData={
+            email:this.state.email,
+            password:this.state.password,
+            firstname:this.state.firstName,
+            lastName:this.state.lastName,
+            userId:localStorage.getItem('userId')
+        }
+        this.setState({isAuth:true,signin:true})
+        axios.post("https://online-mobile-shopping-c693f.firebaseio.com/users.json",userData);
+    })
+    .catch(err=>{
+        this.setState({isAuth:false,signin:false})
+        alert(err.response.data.error.message)  
+    })
+}
+
 getItem=(id)=>{
     const product =this.state.products.find(item=>item.id===id);
     return product;
 }
 componentDidMount(){
     this.setProducts();
+    this.tryautosignin();
+    
 }
 handleDetail=(id)=>{
      const product=this.getItem(id);
      this.setState({detailProduct:product})
+}
+handleChange=(e)=>{
+    console.log(e.target.type," ",e.target.value)
+    this.setState({[e.target.id]:e.target.value})
 }
 addToCart=(id)=>{
      let tempProducts = [...this.state.products];
@@ -39,11 +122,16 @@ addToCart=(id)=>{
      const product = tempProducts[index];
      product.inCart=true;
      product.count=1;
+     let today = new Date();
+    let date=today.getDate() + "-"+ parseInt(today.getMonth()+1) +"-"+today.getFullYear()+"-"+today.getHours()+":"+today.getMinutes();
+     product.time=date ;
      const price=product.price;
      product.total=price;
      this.setState(()=>{
          return {products:tempProducts,cart:[...this.state.cart,product]};
      },()=>{
+         console.log(this.state.cart);
+         
          this.addTotals();
      })
 }
@@ -143,7 +231,11 @@ render() {
             increment:this.increment,
             decrement:this.decrement,
             removeItem:this.removeItem,
-            clearCart:this.clearCart
+            clearCart:this.clearCart,
+            handlechange:this.handleChange,
+            signin:this.signin,
+            signup:this.signup,
+            logout:this.logout
         }}>   
             {this.props.children}   
         </ProductContext.Provider>

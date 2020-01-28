@@ -1,0 +1,57 @@
+ state={
+        userId:null,
+        finalarray:[],
+        newArray:[]
+
+    }
+     
+    
+    componentDidMount(){
+        const userId=localStorage.getItem('userId');
+        this.setState({userId})
+        this.getData(userId)
+    }
+    
+    getData=(userId)=>{
+        
+        axios.get(`https://online-mobile-shopping-c693f.firebaseio.com/${userId}.json`)
+        // const token=localStorage.getItem('token');
+        // const userId=localStorage.getItem('userId');
+        //  const queryParams='?auth='+token+'&orderBy="userId"&equalTo="'+userId+'"';
+        //  axios.get("https://online-mobile-shopping-c693f.firebaseio.com/orders.json"+queryParams)
+        .then(response=>{
+          
+            const fetchorders=[];
+            for(let key in response.data)
+            {
+                fetchorders.push({
+                    ...response.data[key],
+                    
+                    id:key
+                });
+            }
+            console.log("fet0",fetchorders);
+            
+            let newarray=[]
+            fetchorders.reduce((arr,ele)=>{
+                 newarray=merge(arr,ele)
+            })
+            this.setState({newArray:newarray})
+          let orderArray= Object.keys(newarray).map( keys=>{
+                return [...Array(newarray[keys])]
+            });
+           const array2= Object.values(orderArray).map((ele,i)=>{
+                return ele[i];
+            })
+            let fa=Object.values(array2).map((items,i)=>{
+                return items
+            })  
+            fa=fa[0];
+            this.setState({finalarray:fa})
+            console.log(this.state.finalarray);
+        })
+        .catch(err=>{
+            console.log(err);
+            
+        })
+    }

@@ -6,11 +6,11 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {ProductProvider} from './context'
 ReactDOM.render(
+<BrowserRouter>
     <ProductProvider>
-        <BrowserRouter>
             <App />
-        </BrowserRouter>
     </ProductProvider>
+    </BrowserRouter>
     , 
 document.getElementById('root'));
 
