@@ -1,16 +1,17 @@
 import React, { Component } from "react";
-import './Login.css';
+import classes from './Login.css';
 import {Link} from 'react-router-dom'
 import {ProductConsumer} from '../../context'
 
 export default class Login extends Component {
     render() {
         return (
-            <ProductConsumer>
+        
+                <ProductConsumer >
                 {value=>{
                     const {handlechange,signin}=value;
                     return(
-                        <form onSubmit={(event)=>signin(event)}>
+                        <form onSubmit={(event)=>signin(event,this.props.history)}>
                 <div style={{width:'50%',margin:"auto"}}>
                 <div className="form-group mt-1 py-1">
                     <label>Email address</label>
@@ -31,6 +32,8 @@ export default class Login extends Component {
                     )
                 }}
             </ProductConsumer>
+        
+            
             
         );
     }

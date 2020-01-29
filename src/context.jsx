@@ -22,13 +22,24 @@ const ProductContext=React.createContext();
          isAuth:false,
      }
 
-logout=()=>{
+    
+logout=(history)=>{
+    if(this.state.isAuth){
+         
+    console.log(history);
+    
             localStorage.removeItem('token');
             localStorage.removeItem('userId');
             this.setState(()=>{
                 return {isAuth:false};
+            },()=>{
+                history.push("/signin")
             })
+    }
+    
+
             
+             
 }
 
 tryautosignin=()=>{
@@ -49,7 +60,7 @@ setProducts=()=>{
     });
     this.setState({products:tempProducts});
 };
-signin=(e)=>{
+signin=(e,history)=>{
     e.preventDefault();
     const authData={
         email:this.state.email,
@@ -62,7 +73,8 @@ signin=(e)=>{
     .then(response=>{
             localStorage.setItem('token',response.data.idToken)
             localStorage.setItem('userId',response.data.localId)
-            this.setState({isAuth:true,signin:true})  
+            this.setState({isAuth:true,signin:true}) 
+            history.replace('/') 
             
     })
     .catch(err=>{
@@ -70,6 +82,10 @@ signin=(e)=>{
         this.setState({isAuth:false,signin:false});
     })
     
+}
+redirectToProduct=(history)=>{
+console.log("context",history);
+
 }
 signup=(e)=>{
     e.preventDefault();
@@ -235,7 +251,8 @@ render() {
             handlechange:this.handleChange,
             signin:this.signin,
             signup:this.signup,
-            logout:this.logout
+            logout:this.logout,
+            redirectToProduct:this.redirectToProduct
         }}>   
             {this.props.children}   
         </ProductContext.Provider>

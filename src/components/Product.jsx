@@ -7,7 +7,7 @@ export default class Product extends Component {
         const {id,title,img,price,inCart}=this.props.product;
         return (
             <ProductWrapper className="col-9 mx-auto col-md-6 col-lg-3 my-3">
-                <div className="card">
+                <div className="card" style={{backgroundColor:"rgba(0,0,0,0.3)"}}>
                     <ProductConsumer>
                         {(value)=>(
                         <div>
@@ -45,7 +45,9 @@ export default class Product extends Component {
 // 054043
 
 const ProductWrapper = styled.div`
+
 .card{
+    color:orange;
     border-color:transparent;
     transition: all 0.1s linear;
     border-radius: 1.2rem 0rem 1.2rem;

@@ -1,34 +1,36 @@
 import React, { Component } from 'react'
-import {Link} from 'react-router-dom'
+import {Link,withRouter} from 'react-router-dom'
 import Logo from '../logo.svg'
 import styled from 'styled-components'
 import {ButtonContainer} from './Button';
 import {ProductConsumer} from '../context'
-export default class NavBar extends Component {
+export  class NavBar extends Component {
     render() {
         return (
             
-            <ProductConsumer props={this.props}>
+            <ProductConsumer >
                 {value=>{
                     const {isAuth}=value;
                     const {logout}=value;
+                    
+                    const history = this.props.history
                     return(
                         <NavWrapper className='navbar navbar-expand-sm navbar-dark px-sm-5'>
                         {isAuth ? (<Link to='/'>
-                <img src={Logo} alt="store" className="navbar-brand" />
+                <img src={Logo} alt="store" className="brand" />
             </Link>):null}
             {isAuth ?(<React.Fragment><ul className="navbar-nav align-items-center">
                 <li className="nav-item ml-5">
                     <Link to='/' className='nav-link'>products</Link>
                 </li>
-                
-                <li className="nav-item ml-5"style={{listStyleType:"none"}}>
-                    <Link to='/logout' className='nav-link' onClick={()=>logout()}>
-                    <i className="fas fa-sign-in-alt"> Logout</i></Link>
-                </li>
                 <li className="nav-item ml-5"style={{listStyleType:"none"}}>
                     <Link to='/orders' className='nav-link'>
-                    <i class="fas fa-sort"> Orders</i></Link>
+                    <i className="fas fa-sort"> Orders</i></Link>
+                </li>
+                <li className="nav-item ml-5"style={{listStyleType:"none"}}>
+                    
+                    <Link to='/logout' className='nav-link' onClick={()=>logout(history)}>
+                    <i className="fas fa-sign-in-alt"> Logout</i></Link>
                 </li>
             </ul>
             <Link  to='/cart' className='ml-auto'>
@@ -55,10 +57,11 @@ export default class NavBar extends Component {
         );
     }
 }
+export default withRouter(NavBar) ;
 const NavWrapper=styled.nav`
 background:var(--mainBlue);
 .nav-link{
-    color:var(--mainWhite) !important;
+    color:black;
     font-size:1.3rem;
     text-transform:capitalize;
 }

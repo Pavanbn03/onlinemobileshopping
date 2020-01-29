@@ -31,6 +31,7 @@ class App extends Component {
           if(isAuth){
             routes=(
               <Switch>
+                <Route path='/signin'  component={Signin} />
                 <Route path='/details'  component={Details} />
       <Route path='/cart'  component={Cart} />
       <Route path='/orders'  component={Orders} />
