@@ -6,7 +6,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {ProductProvider} from './context'
 ReactDOM.render(
-<BrowserRouter>
+<BrowserRouter basename='/signin'>
     <ProductProvider>
             <App />
     </ProductProvider>
