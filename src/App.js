@@ -12,6 +12,7 @@ import Signin from './components/auth/Signin'
 import Signup from './components/auth/Signup'
 import {ProductConsumer} from './context'
 import Orders from './components/Orders'
+import HomePage from './components/HomePage'
 
 
 class App extends Component {
@@ -20,6 +21,7 @@ class App extends Component {
   <Switch>
     <Route path='/signin'  component={Signin} />
       <Route path='/signup'  component={Signup} />
+      <Route path='/' exact  component={HomePage} />
       <Route component={Default} />
   </Switch>)
     
@@ -35,7 +37,8 @@ class App extends Component {
                 <Route path='/details'  component={Details} />
       <Route path='/cart'  component={Cart} />
       <Route path='/orders'  component={Orders} />
-       <Route path='/' exact component={ProductList} />
+       <Route path='/product'  component={ProductList} />
+       <Route path='/' exact  component={HomePage} />
        <Route component={Default} />
               </Switch>
             )

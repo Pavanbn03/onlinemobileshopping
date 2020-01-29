@@ -74,7 +74,7 @@ signin=(e,history)=>{
             localStorage.setItem('token',response.data.idToken)
             localStorage.setItem('userId',response.data.localId)
             this.setState({isAuth:true,signin:true}) 
-            history.replace('/') 
+            history.replace('/product') 
             
     })
     .catch(err=>{
