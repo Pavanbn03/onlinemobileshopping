@@ -68,7 +68,7 @@ export default class Orders extends Component {
         
         return (
             <div>
-            {this.state.finalarray.map(ele=><OrderDisplay key={ele.img} title={ele.title}company={ele.company} count={ele.count} total={ele.total} img={ele.img} time={ele.time} />)}
+            {this.state.finalarray.reverse().map(ele=><OrderDisplay key={ele.img} title={ele.title}company={ele.company} count={ele.count} total={ele.total} img={ele.img} time={ele.time} />)}
                 
             
         
