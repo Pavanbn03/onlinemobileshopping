@@ -57,7 +57,7 @@ export  class NavBar extends Component {
         );
     }
 }
-export default withRouter(NavBar) ;
+export default withRouter(NavBar);
 const NavWrapper=styled.nav`
 background:var(--mainBlue);
 .nav-link{

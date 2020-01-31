@@ -26,8 +26,9 @@ export default class Login extends Component {
                 <p className="forgot-password text-right">
                     {/* Forgot <a href="#">password?</a> */}
                 </p>
-                <Link to='/signup' style={{textDecoration:"none"}}><p style={{textAlign:"center"}}>Create New Account</p></Link>
+                <Link to='/signup' style={{textDecoration:"none"}}><p style={{textAlign:"center"}}>Not have a account? Sign Up</p></Link>
                 </div>
+                <Link to='reset'><p style={{textAlign:"center"}}>Forget Password, Click Here</p></Link>
             </form>
                     )
                 }}

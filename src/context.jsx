@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import {storeProducts,detailProduct} from './data'
-import {Redirect} from 'react-router-dom'
+import * as firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
+
 
 const ProductContext=React.createContext();
 
@@ -20,11 +23,13 @@ const ProductContext=React.createContext();
          firstName:null,
          lastName:null,
          isAuth:false,
+         email:null
      }
 
     
 logout=(history)=>{
     if(this.state.isAuth){
+        
          
     console.log(history);
     
@@ -33,7 +38,7 @@ logout=(history)=>{
             this.setState(()=>{
                 return {isAuth:false};
             },()=>{
-                history.push("/signin")
+               history.replace('/signin')
             })
     }
     
@@ -87,7 +92,7 @@ redirectToProduct=(history)=>{
 console.log("context",history);
 
 }
-signup=(e)=>{
+signup=(e,history)=>{
     e.preventDefault();
     const authData={
         email:this.state.email,
@@ -108,6 +113,7 @@ signup=(e)=>{
         }
         this.setState({isAuth:true,signin:true})
         axios.post("https://online-mobile-shopping-c693f.firebaseio.com/users.json",userData);
+        history.push('/product')
     })
     .catch(err=>{
         this.setState({isAuth:false,signin:false})
@@ -236,7 +242,42 @@ addTotals=()=>{
         }
     })
 }
+reset =(e,history)=>{
+    e.preventDefault();
+    const email=e.target.value;
+    this.setState({email})
+    var auth = firebase.auth();
+    var emailAddress =this.state.email;
+    auth.sendPasswordResetEmail(emailAddress)
+    .then(response=>{
+        alert(`Email has be sent to ${emailAddress} . Please verify`)
+        history.push('/signin')
+        
+    })
+    .catch(err=>{
+     
+        
+       alert(err.message)
+        
+    })
+  
+    
+}
 render() {
+    if (!firebase.apps.length) {
+        var firebaseConfig = {
+        apiKey: "AIzaSyAE0oDZHowCczpHaJ4V3v6l1IMOYD0cA0k",
+    authDomain: "online-mobile-shopping-c693f.firebaseapp.com",
+    databaseURL: "https://online-mobile-shopping-c693f.firebaseio.com",
+    projectId: "online-mobile-shopping-c693f",
+    storageBucket: "online-mobile-shopping-c693f.appspot.com",
+    messagingSenderId: "144891928857",
+    appId: "1:144891928857:web:d9cd325f2419a5ea39e588",
+    measurementId: "G-K4Z3B2WCZK"
+      };
+      firebase.initializeApp(firebaseConfig);
+    }
+    
     return (
         <ProductContext.Provider value={{
             ...this.state,
@@ -252,7 +293,9 @@ render() {
             signin:this.signin,
             signup:this.signup,
             logout:this.logout,
-            redirectToProduct:this.redirectToProduct
+            redirectToProduct:this.redirectToProduct,
+            reset:this.reset
+          
         }}>   
             {this.props.children}   
         </ProductContext.Provider>

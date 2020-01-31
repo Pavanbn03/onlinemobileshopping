@@ -6,13 +6,14 @@ import NavBar from './components/NavBar'
 import ProductList from './components/ProductList'
 import Details from './components/Details'
 import Cart from './components/Cart/Cart'
-import Default from './components/Default'
+import Default from './components/404'
 import Model from './components/Model'
 import Signin from './components/auth/Signin'
 import Signup from './components/auth/Signup'
 import {ProductConsumer} from './context'
 import Orders from './components/Orders'
 import HomePage from './components/HomePage'
+import ResetPassword from './components/auth/ResetPassword'
 
 
 class App extends Component {
@@ -21,6 +22,7 @@ class App extends Component {
   <Switch>
     <Route path='/signin'  component={Signin} />
       <Route path='/signup'  component={Signup} />
+      <Route path='/reset' component={ResetPassword} />
       <Route path='/' exact  component={HomePage} />
       <Route component={Default} />
   </Switch>)

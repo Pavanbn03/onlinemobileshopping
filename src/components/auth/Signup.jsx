@@ -10,7 +10,7 @@ export default class SignUp extends Component {
                 {value=>{
                     const {handlechange,signup}=value;
                     return(
-                        <form onSubmit={(event)=>signup(event)}>
+                        <form onSubmit={(event)=>signup(event,this.props.history)}>
                 <div style={{width:'50%',margin:"auto",marginTop:"20px"}}>
 
                 <div className="form-group">
@@ -35,7 +35,7 @@ export default class SignUp extends Component {
 
                 <button type="submit" className="btn btn-primary btn-block">Sign Up</button>
                 <p className="forgot-password text-right">
-                    Already registered <Link to="/signin">sign in?</Link>
+                    Already registered? <Link to="/signin">Sign In</Link>
                 </p>
                 </div>
             </form>
