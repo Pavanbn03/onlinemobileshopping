@@ -16,12 +16,12 @@ export  class NavBar extends Component {
                     const history = this.props.history
                     return(
                         <NavWrapper className='navbar navbar-expand-sm navbar-dark px-sm-5'>
-                        {isAuth ? (<Link to='/product'>
+                        {isAuth ? (<Link to='/'>
                 <img src={Logo} alt="store" className="brand" />
             </Link>):null}
             {isAuth ?(<React.Fragment><ul className="navbar-nav align-items-center">
                 <li className="nav-item ml-5">
-                    <Link to='/product' className='nav-link'>products</Link>
+                    <Link to='/product' className='nav-link'><i class="fas fa-mobile-alt"> products</i></Link>
                 </li>
                 <li className="nav-item ml-5"style={{listStyleType:"none"}}>
                     <Link to='/orders' className='nav-link'>
