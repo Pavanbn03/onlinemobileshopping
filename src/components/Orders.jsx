@@ -8,6 +8,7 @@ import {Link} from 'react-router-dom'
 export default class Orders extends Component {
     state={
         finalarray:[],
+        orders:[],
         emptyordersorders:true
     }
     componentDidMount(){
@@ -21,9 +22,13 @@ export default class Orders extends Component {
         const queryParams='?auth='+token+'&orderBy="userId"&equalTo="'+userId+'"';
         axios.get('https://online-mobile-shopping-c693f.firebaseio.com/orders.json'+queryParams)
         .then(response=>{
-            if(response.data.length>0){
+            
+            this.setState({orders:response.data})
+            
+            
+            if(Object.keys(this.state.orders).length>0){
                 this.setState({emptyordersorders:false})
-                console.log(response);
+                
             const fetchorders=[];
             for(let key in response.data){
                 console.log("res",response.data[key]);

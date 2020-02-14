@@ -23,7 +23,6 @@ const ProductContext=React.createContext();
          firstName:null,
          lastName:null,
          isAuth:false,
-         email:null
      }
 
     

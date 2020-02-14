@@ -21,7 +21,7 @@ export  class NavBar extends Component {
             </Link>):null}
             {isAuth ?(<React.Fragment><ul className="navbar-nav align-items-center">
                 <li className="nav-item ml-5">
-                    <Link to='/product' className='nav-link'><i class="fas fa-mobile-alt"> products</i></Link>
+                    <Link to='/product' className='nav-link'><i className="fas fa-mobile-alt"> products</i></Link>
                 </li>
                 <li className="nav-item ml-5"style={{listStyleType:"none"}}>
                     <Link to='/orders' className='nav-link'>
